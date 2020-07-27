@@ -17,9 +17,9 @@ class Properties extends React.Component {
         }
         const propertyList = [];
         const keys = {
-            "numberOfBedrooms": "Bedrooms",
-            "numberOfBathrooms": "Bathrooms",
-            "pricePerNight": "Price"
+            "numberOfBedrooms": "bedrooms",
+            "numberOfBathrooms": "bathrooms",
+            "pricePerNight": "price"
         }
         const id = property.id;
         for (const [key, value] of Object.entries(property)) {
