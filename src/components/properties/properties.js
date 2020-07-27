@@ -27,8 +27,12 @@ class Properties extends React.Component {
             const propName = (keys[key]) ? keys[key] : key;
             propertyList.push(<li key={`${id}_${key}`} className={`propertyDetail_${key}`}><span className="key">{propName}:</span><span className="value">{value}</span></li>)
         }
+        /*img alt empty string because I suppose for visually impaired user
+          the image of the location is somewhat decorative, 
+          it wouldn't be beneficial to have each image say "Image of location" at any rate.
+        */
         return (<div className="property" key={`property_${id}`}>
-            <div className="propertyImageHolder"><img src={image} className="propertyImage" /></div>
+            <div className="propertyImageHolder"><img src={image} className="propertyImage" alt=""/></div>
             <div className="PropertyDescriptionHolder">
                  <ul className="propertyDetails">{propertyList}</ul>
             </div>

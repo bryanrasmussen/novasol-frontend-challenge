@@ -6,6 +6,7 @@ import 'whatwg-fetch'
 import './App.scss';
 const serviceApi = "http://localhost:4000/properties";
 class App extends React.Component {
+
   state = {
     properties: null,
     error: null,
@@ -13,18 +14,24 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getServiceApi();
-
+    //show loading icon if not loaded within 1 second
+    setTimeout(() => {
+      this.setState({setLoadingIcon: true});
+    }, 1000);
   }
+
   getServiceApi = () => {
-    fetch(serviceApi).then(
+    //use setTimeout to break event loop
+    setTimeout(() => {fetch(serviceApi).then(
       (response) => {
         return response.json()
     }).then(
       (json) => {
         this.setState({properties: json});
       }).catch((err) => {
-        this.setState({error: err});
-      });
+        const message = err.message;
+        this.setState({error: message});
+      }); }, 0);
   }
 
   clearError = () => {
@@ -37,17 +44,17 @@ class App extends React.Component {
   render() {
     const {properties, error, setLoadingIcon} = this.state;
     /*To Check the Loading icon make server response slow 
-    and setLoadingIcon to true, 
-    obviously assume that there is code to handle changing state 
-    based on timer.
+    or just turn it off
+  
     2. see it here https://codepen.io/bryanrasmussen/pen/vYLMaBj
 
     */
+   const errMessage = (error) ? error : (window.errMessage) ? window.errMessage : "";
     return (<div className="App">
       <h1>Novasol frontend challenge</h1>
       {!error && !properties && setLoadingIcon &&
         <div title="House by Marina Pugacheva from the Noun Project">
-          <svg viewBox="0 0 88.96 110.7875" x="0px" y="0px">
+          <svg viewBox="0 0 288.96 110.7875" x="0px" y="0px">
             <defs>
               <filter id="iconfilter" primitiveUnits="objectBoundingBox" >
                 <feFlood flood-color="green"/>     
@@ -75,7 +82,7 @@ class App extends React.Component {
         </svg>
       </div>
       }
-      <Message messageType="error" message={error} clear={this.clearError}/>
+      <Message messageType="error" message={errMessage} clear={this.clearError}/>
       <Properties properties={properties} />
       
       

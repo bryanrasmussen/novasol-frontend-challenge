@@ -39,3 +39,22 @@ body {
         font-variant: small-caps; 
     }
 }
+.message-error {
+    color: #fff;
+    background-color: #ff0000;
+    font-weight: 800;
+}
+.closeMessageHeader {
+    padding: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+}
+.closeMessage {
+    display: inline-block;
+    position: absolute;
+    right: 1rem;
+}
+.messageBody {
+    margin-left: 2rem;
+    padding-bottom: 2rem;
+}
